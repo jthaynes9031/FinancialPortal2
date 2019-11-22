@@ -1,0 +1,106 @@
+﻿@model FinacialPortal2.Models.EditUser
+@{
+    ViewBag.Title = "EditProfile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="content">
+    <div class="container-fluid">
+        <div class="col-md-8 col-12 mr-auto ml-auto">
+            <!--      Wizard container        -->
+            <div class="wizard-container">
+                <div class="card card-wizard" data-color="blue" id="wizardProfile">
+                    <form action="" method="">
+                        <!--        You can switch " data-color="primary" "  with one of the next bright colors: "green", "orange", "red", "blue"       -->
+                        <div class="card-header text-center">
+                            <h3 class="card-title">
+                                Complete your registration
+                            </h3>
+                            <h5 class="card-description">This information will let us know more about you.</h5>
+                        </div>
+                        <!--Wizard Nav-->
+                        <div class="wizard-navigation">
+                            <ul class="nav nav-pills">
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="#about" data-toggle="tab" role="tab">
+                                        About
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#account" data-toggle="tab" role="tab">
+                                        Account
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#address" data-toggle="tab" role="tab">
+                                        Address
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!--Wizard nav End-->
+                        <!--Wizard-->
+                        <div class="card-body">
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="about">
+                                    <h5 class="info-text">Customize</h5>
+                                    <div class="row justify-content-center">
+                                        <div class="col-sm-4">
+                                            <div class="picture-container">
+                                                <div class="picture">
+                                                    <img src="../../assets/img/default-avatar.png" class="picture-src" id="wizardPicturePreview" title="" />
+                                                    <input type="file" id="wizard-picture">
+                                                </div>
+                                                <h6 class="description">Choose Picture</h6>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="input-group form-control-lg">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="material-icons">face</i>
+                                                    </span>
+                                                </div>
+                                                <div class="form-group">
+                                                    @Html.Label("example-text-input", "First Name", new { @class = "col-form-label" })
+                                                    <input type="text" class="form-control" id="exampleInput1" name="firstname" required>
+                                                </div>
+                                            </div>
+                                            <div class="input-group form-control-lg">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="material-icons">record_voice_over</i>
+                                                    </span>
+                                                </div>
+                                                <div class="form-group">
+                                                @Html.Label("example-text-input", "Last Name", new { @class = "col-form-label" })
+                                                    <input type="text" class="form-control" id="exampleInput11" name="lastname" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-10 mt-3">
+                                            <div class="input-group form-control-lg">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="material-icons">accessibility_new</i>
+                                                    </span>
+                                                </div>
+                                                <div class="form-group">
+                                                    @Html.Label("disabledTextInput", "Display Name", new { @class = "col-form-label" })
+                                                    <input type="email" class="form-control" id="exampleemalil" name="email" required>
+                                                </div>
+                                                <div class="mr-auto">
+                                                    <input type="button" class="btn btn-next btn-fill btn-rose btn-wd" name="next" value="Next">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{}
