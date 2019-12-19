@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace FinacialPortal2.Models
@@ -79,6 +80,20 @@ namespace FinacialPortal2.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string DisplayName { get; set; }
+        public string AvatarPath { get; set; }
+
+        public AcceptInvitationViewModel acceptVm { get; set; }
+        public CreateHouseHoldViewModel createHouseVm { get; set; }
+
+        public RegisterViewModel()
+        {
+            acceptVm = new AcceptInvitationViewModel();
+            createHouseVm = new CreateHouseHoldViewModel();
+        }
     }
 
     public class ResetPasswordViewModel
@@ -119,5 +134,19 @@ namespace FinacialPortal2.Models
             LoginVM = new LoginViewModel();
             RegisterVM = new RegisterViewModel();
         }
+    }
+
+    public class AcceptInvitationViewModel
+    {
+        public Guid Code { get; set; }
+        public string Email { get; set; }
+        public int HouseholdId { get; set; }
+    }
+    public class CreateHouseHoldViewModel
+    {
+        public string Name { get; set; }
+        public string Greeting { get; set; }
+        public DateTime Created { get; set; }
+
     }
 }

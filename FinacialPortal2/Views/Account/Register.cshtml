@@ -1,33 +1,28 @@
 ﻿@model FinacialPortal2.Models.RegisterViewModel
+
 @{
     ViewBag.Title = "Register";
     Layout = null;
 }
-<!DOCTYPE html>
-<html lang="en">
 
+<!doctype html>
+<html lang="en">
 <head>
     <meta charset="utf-8" />
     <link rel="apple-touch-icon" sizes="76x76" href="~/img/apple-icon.png">
-    <link rel="icon" type="image/png" href="~/img/favicon.png">
-
+    <link rel="icon" type="image/png" href="../assets/img/favicon.png">
     <!--     Fonts and icons     -->
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
-
     <!-- CSS Files -->
     <link href="~/Content/material-dashboard.css?v=2.1.0" rel="stylesheet" />
-
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="~/Content/demo.css" rel="stylesheet" />
-
 </head>
-
 <body class="off-canvas-sidebar">
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top text-white">
         <div class="container">
-
             <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="navbar-toggler-icon icon-bar"></span>
@@ -36,11 +31,6 @@
             </button>
             <div class="collapse navbar-collapse justify-content-end">
                 <ul class="navbar-nav">
-                    @*<li class="nav-item">
-                            <a href="../dashboard.html" class="nav-link">
-                                <i class="material-icons">dashboard</i> Dashboard
-                            </a>
-                        </li>*@
                     <li class="nav-item active">
                         <a href="#" class="nav-link">
                             <i class="material-icons">person_add</i> Register
@@ -51,173 +41,309 @@
                             <i class="material-icons">fingerprint</i> Login
                         </a>
                     </li>
+                    <li class="nav-item  active ">
+                        <a href="@Url.Action("ForgotPassword","Account")" class="nav-link">
+                            <i class="material-icons">present_to_all</i> Forgot Password
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
-    <!-- End Navbar -->
-    <!--Register Form-->
+    <!--Nav bar end-->
     <div class="wrapper wrapper-full-page">
-        <div class="page-header register-page header-filter" filter-color="black" style="background-image: url('../img/login.jpg')">
+        <div class="page-header register-page header-filter" filter-color="black" style="background-image: url('../img/lock.jpg')">
             <div class="container">
-                <div class="row">
-                    <div class="col-md-10 ml-auto mr-auto">
-                        <div class="card card-signup">
-                            <h2 class="card-title text-center">Financial Portal Registration</h2>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-5 ml-auto">
-                                        <div class="info info-horizontal">
-                                            <div class="icon icon-rose">
-                                                <i class="material-icons">timeline</i>
-                                            </div>
-                                            <div class="description">
-                                                <h4 class="info-title">Sign up!</h4>
-                                                <p class="description">
-                                                    Signing up is quick and easy!
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="info info-horizontal">
-                                            <div class="icon icon-primary">
-                                                <i class="material-icons">code</i>
-                                            </div>
-                                            <div class="description">
-                                                <h4 class="info-title">Access</h4>
-                                                <p class="description">
-                                                    Get access to Financial Portal features!
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="info info-horizontal">
-                                            <div class="icon icon-info">
-                                                <i class="material-icons">group</i>
-                                            </div>
-                                            <div class="description">
-                                                <h4 class="info-title">Budget</h4>
-                                                <p class="description">
-                                                    Budget your life !
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-5 mr-auto">
-                                        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { role = "form", enctype = "Multipart/form-data" }))
-                                        {
-                                            @Html.AntiForgeryToken()
-                                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-                                            <div class="form" @*method=""*@>
-                                                <div class="form-group has-default">
-                                                    <div class="input-group">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text">
-                                                                <i class="material-icons">mail</i>
-                                                            </span>
+                <div class="col-md-8 col-12 mr-auto ml-auto">
+                    <!--      Wizard container        -->
+                    <div class="wizard-container">
+                        <div class="card card-wizard" data-color="rose" id="wizardProfile">
+                            <!--HEADER-->
+                            <div class="card-header text-center">
+                                <h3 class="card-title">
+                                    Build Your Profile
+                                </h3>
+                                <h5 class="card-description">This information will let us know more about you.</h5>
+                            </div>
+                            <!--HEADER END-->
+                            <!--NAV BAR-->
+                            <div class="wizard-navigation">
+                                <ul class="nav nav-pills">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" href="#about" data-toggle="tab" role="tab">
+                                            About
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#account" data-toggle="tab" role="tab">
+                                            Choose
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#address" data-toggle="tab" role="tab">
+                                            Create Household
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!--NAV END-->
+                            <!--CARD BODY-->
+                            @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { role = "form", enctype = "Multipart/form-data" }))
+                            {
+                                <div class="card-body">
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="about">
+                                            <h5 class="info-text"> Let's start with the basic information (with validation)</h5>
+                                            <div class="row justify-content-center">
+                                                @Html.AntiForgeryToken()
+                                                @Html.HiddenFor(model => Model.acceptVm.HouseholdId)
+                                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                                <div class="col-sm-4">
+                                                    <div class="picture-container">
+                                                        <div class="picture">
+                                                            <img src="../../assets/img/default-avatar.png" class="picture-src" id="wizardPicturePreview" title="" />
+                                                            <input type="file" id="wizard-picture">
                                                         </div>
-                                                        @*<input type="text" class="form-control" placeholder="Email...">*@
-                                                        @Html.TextBoxFor(m => m.Email, new { @Placeholder = "Email", @class = "form-control input-lg" })
-                                                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                                                        <h6 class="description">Choose Picture</h6>
                                                     </div>
                                                 </div>
-                                                <div class="form-group has-default">
-                                                    <div class="input-group">
+                                                <div class="col-sm-6">
+                                                    <div class="input-group form-control-lg">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text">
-                                                                <i class="material-icons">lock_outline</i>
+                                                                <i class="material-icons">face</i>
                                                             </span>
                                                         </div>
-                                                        @*<input type="password" placeholder="Password..." class="form-control">*@
-                                                        @Html.PasswordFor(m => m.Password, new { @Placeholder = "Password", @class = "form-control input-lg" })
-                                                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                                                        <div class="form-group">
+                                                            @Html.Label("exampleInput1", "First Name", new { @class = "bmd-label-floating" })
+                                                            @Html.TextBoxFor(m => m.FirstName, new { @type = "text", @class = "form-control" })
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="form-group has-default">
-                                                    <div class="input-group">
+                                                    <div class="input-group form-control-lg">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text">
-                                                                <i class="material-icons">lock_outline</i>
+                                                                <i class="material-icons">record_voice_over</i>
                                                             </span>
                                                         </div>
-                                                        @*<input type="password" placeholder="Confirm Password..." class="form-control">*@
-                                                        @Html.PasswordFor(m => m.ConfirmPassword, new { @Placeholder = "Confirm Password", @class = "form-control input-lg" })
-                                                        @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+                                                        <div class="form-group">
+                                                            @Html.Label("exampleInput11", "Last Name", new { @class = "bmd-label-floating" })
+                                                            @Html.TextBoxFor(m => m.LastName, new { @type = "text", @class = "form-control" })
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="form-group">
-                                                    <div class="input-group" id="profilebox">
+                                                <div class="col-lg-10 mt-3">
+                                                    <div class="input-group form-control-lg">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text">
-                                                                <i class="material-icons">lock_outline</i>
+                                                                <i class="material-icons">email</i>
                                                             </span>
                                                         </div>
-                                                        <input type="file" name="image" class="form-control" id="fileUpload" />
-                                                        @Html.TextBox("Avatar", null, new { type = "file" })
+                                                        <div class="form-group">
+                                                            @Html.Label("exampleInput11", "Display Name", new { @class = "bmd-label-floating" })
+                                                            @Html.TextBoxFor(m => m.DisplayName, new { @type = "text", @class = "form-control" })
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="text-center">
-                                                    <button type="submit" onclick="location.href='@Url.Action("Dashboard","Home")'" class="btn signBtn btn-block">Sign Up</button>
-                                                    @*<a href="@Url.Action("Dashboard", "Home")" class="btn btn-primary btn-round mt-4">Submit</a>*@
+                                                <div class="col-lg-10 mt-3">
+                                                    <div class="input-group form-control-lg">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">
+                                                                <i class="material-icons">email</i>
+                                                            </span>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            @Html.Label("exampleInput11", "Email", new { @class = "bmd-label-floating" })
+                                                            @Html.TextBoxFor(m => m.Email, new { @type = "text", @class = "form-control" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-10 mt-3">
+                                                    <div class="input-group form-control-lg">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">
+                                                                <i class="material-icons">email</i>
+                                                            </span>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            @Html.Label("exampleInput11", "Password", new { @class = "bmd-label-floating" })
+                                                            @Html.PasswordFor(m => m.Password, new { @type = "text", @class = "form-control" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-10 mt-3">
+                                                    <div class="input-group form-control-lg">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">
+                                                                <i class="material-icons">email</i>
+                                                            </span>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            @Html.Label("exampleInput11", "Confirm Password", new { @class = "bmd-label-floating" })
+                                                            @Html.PasswordFor(m => m.ConfirmPassword, new { @type = "text", @class = "form-control" })
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        }
+                                        </div>
+
+                                        <!--HOUSEHOLE-->
+                                        <div class="tab-pane" id="account">
+                                            <h5 class="info-text"> What are you doing? (checkboxes) </h5>
+                                            <div class="row justify-content-center">
+                                                <div class="col-lg-10">
+                                                    <div class="row">
+                                                        <div class="col-sm-4">
+                                                            <div class="choice" data-toggle="wizard-checkbox">
+                                                                <input type="checkbox" name="jobb" value="Design">
+                                                                <div class="icon">
+                                                                    <i class="material-icons">group</i>
+                                                                </div>
+                                                                <h6>Join Household</h6>
+                                                                @Html.TextBoxFor(m => m.acceptVm.Code, new { @type = "text", @class = "form-control" })
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <div class="choice" data-toggle="wizard-checkbox">
+                                                                <input type="checkbox" name="jobb" value="Code">
+                                                                <div class="icon">
+                                                                    <i class="material-icons">house</i>
+                                                                </div>
+                                                                <h6>Create Household</h6>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!--END HOUSEHOLD-->
+                                        <!--CREATE HOUSEHOLD VM-->
+                                        <div class="tab-pane" id="address">
+                                            <div class="row justify-content-center">
+
+                                                <div class="col-sm-12">
+                                                    <h5 class="info-text"> Lets Get You Started, Create A Household! </h5>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(model => model.createHouseVm.Name, htmlAttributes: new { @class = "bmd-label-floating" })
+                                                        <div class="col-md-10">
+                                                            @Html.EditorFor(model => model.createHouseVm.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                                            @Html.ValidationMessageFor(model => model.createHouseVm.Name, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.createHouseVm.Greeting, htmlAttributes: new { @class = "bmd-label-floating" })
+                                                            <div class="col-md-10">
+                                                                @Html.EditorFor(model => model.createHouseVm.Greeting, new { htmlAttributes = new { @class = "form-control" } })
+                                                                @Html.ValidationMessageFor(model => model.createHouseVm.Greeting, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--I DONT KNOW-->
+                                        <div class="card-footer">
+                                            <button type="submit" onclick="location.href='@Url.Action("Dashboard","Home")'" class="btn signBtn btn-block">Sign Up</button>
+                                            <div class="mr-auto">
+                                                <input type="button" class="btn btn-previous btn-fill btn-default btn-wd disabled" name="previous" value="Previous">
+                                            </div>
+                                            <div class="ml-auto">
+                                                <input type="button" class="btn btn-next btn-fill btn-rose btn-wd" name="next" value="Next">
+                                                @*<input type="button" class="btn btn-finish btn-fill btn-rose btn-wd" name="finish" value="Submit" >*@
+                                            </div>
+                                        </div>
                                     </div>
+                                    <div class="clearfix"></div>
                                 </div>
-                            </div>
+                            }
                         </div>
                     </div>
                 </div>
-            </div>
-            <footer class="footer">
-                <div class="container">
-                    <div class="copyright text-center">
-                        &copy;
-                        <script>document.write(new Date().getFullYear())</script> made by Jonathan Haynes
 
-                    </div>
-                </div>
-            </footer>
+            </div>
         </div>
     </div>
+    <footer class="footer">
+        <div class="container">
+            <div class="copyright text-center">
+                &copy;
+                <script>document.write(new Date().getFullYear())</script> made by Jonathan Haynes
+            </div>
+        </div>
+    </footer>
+
+
     <!--   Core JS Files   -->
     <script src="~/Scripts/jquery.min.js"></script>
     <script src="~/Scripts/popper.min.js"></script>
     <script src="~/Scripts/bootstrap-material-design.min.js"></script>
     <script src="~/Scripts/perfect-scrollbar.jquery.min.js"></script>
-
-
+    <!-- Plugin for the momentJs  -->
+    <script src="~/Scripts/moment.min.js"></script>
+    <!--  Plugin for Sweet Alert -->
+    <script src="~/Scripts/sweetalert2.js"></script>
+    <!-- Forms Validations Plugin -->
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <!-- Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
+    <script src="~/Scripts/jquery.bootstrap-wizard.js"></script>
+    <!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
+    <script src="~/Scripts/bootstrap-selectpicker.js"></script>
+    <!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
+    <script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+    <!--  DataTables.net Plugin, full documentation here: https://datatables.net/  -->
+    <script src="~/Scripts/jquery.dataTables.min.js"></script>
+    <!--	Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
+    <script src="~/Scripts/jquery.tagsinput.js"></script>
+    <!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
+    <script src="~/Scripts/jasny-bootstrap.min.js"></script>
+    <!--  Full Calendar Plugin, full documentation here: https://github.com/fullcalendar/fullcalendar    -->
+    <script src="~/Scripts/fullcalendar.min.js"></script>
+    <!-- Vector Map plugin, full documentation here: http://jvectormap.com/documentation/ -->
+    <script src="~/Scripts/jquery-jvectormap.js"></script>
+    <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+    <script src="~/Scripts/nouislider.min.js"></script>
+    <!-- Include a polyfill for ES6 Promises (optional) for IE11, UC Browser and Android browser support SweetAlert -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
+    <!-- Library for adding dinamically elements -->
+    <script src="~/Scripts/arrive.min.js"></script>
     <!--  Google Maps Plugin    -->
     <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-
-
     <!-- Chartist JS -->
     <script src="~/Scripts/chartist.min.js"></script>
-
     <!--  Notifications Plugin    -->
     <script src="~/Scripts/bootstrap-notify.js"></script>
-
-
     <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="~/Scripts/material-dashboard.js?v=2.1.0" type="text/javascript"></script>
-
-
     <!-- Material Dashboard DEMO methods, don't include it in your project! -->
     <script src="~/Scripts/demo.js"></script>
-
     <script>
         $(document).ready(function () {
             $().ready(function () {
                 $sidebar = $('.sidebar');
+
                 $sidebar_img_container = $sidebar.find('.sidebar-background');
+
                 $full_page = $('.full-page');
+
                 $sidebar_responsive = $('body > .navbar-collapse');
+
                 window_width = $(window).width();
+
                 fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
+
                 if (window_width > 767 && fixed_plugin_open == 'Dashboard') {
                     if ($('.fixed-plugin .dropdown').hasClass('show-dropdown')) {
                         $('.fixed-plugin .dropdown').addClass('open');
                     }
+
                 }
+
                 $('.fixed-plugin a').click(function (event) {
                     // Alex if we click on switch, stop propagation of the event, so the dropdown will not be hide, otherwise we set the  section active
                     if ($(this).hasClass('switch-trigger')) {
@@ -228,146 +354,168 @@
                         }
                     }
                 });
+
                 $('.fixed-plugin .active-color span').click(function () {
                     $full_page_background = $('.full-page-background');
+
                     $(this).siblings().removeClass('active');
                     $(this).addClass('active');
+
                     var new_color = $(this).data('color');
+
                     if ($sidebar.length != 0) {
                         $sidebar.attr('data-color', new_color);
                     }
+
                     if ($full_page.length != 0) {
                         $full_page.attr('filter-color', new_color);
                     }
+
                     if ($sidebar_responsive.length != 0) {
                         $sidebar_responsive.attr('data-color', new_color);
                     }
                 });
+
                 $('.fixed-plugin .background-color .badge').click(function () {
                     $(this).siblings().removeClass('active');
                     $(this).addClass('active');
+
                     var new_color = $(this).data('background-color');
+
                     if ($sidebar.length != 0) {
                         $sidebar.attr('data-background-color', new_color);
                     }
                 });
+
                 $('.fixed-plugin .img-holder').click(function () {
                     $full_page_background = $('.full-page-background');
+
                     $(this).parent('li').siblings().removeClass('active');
                     $(this).parent('li').addClass('active');
+
+
                     var new_image = $(this).find("img").attr('src');
+
                     if ($sidebar_img_container.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
                         $sidebar_img_container.fadeOut('fast', function () {
                             $sidebar_img_container.css('background-image', 'url("' + new_image + '")');
                             $sidebar_img_container.fadeIn('fast');
                         });
                     }
+
                     if ($full_page_background.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
                         var new_image_full_page = $('.fixed-plugin li.active .img-holder').find('img').data('src');
+
                         $full_page_background.fadeOut('fast', function () {
                             $full_page_background.css('background-image', 'url("' + new_image_full_page + '")');
                             $full_page_background.fadeIn('fast');
                         });
                     }
+
                     if ($('.switch-sidebar-image input:checked').length == 0) {
                         var new_image = $('.fixed-plugin li.active .img-holder').find("img").attr('src');
                         var new_image_full_page = $('.fixed-plugin li.active .img-holder').find('img').data('src');
+
                         $sidebar_img_container.css('background-image', 'url("' + new_image + '")');
                         $full_page_background.css('background-image', 'url("' + new_image_full_page + '")');
                     }
+
                     if ($sidebar_responsive.length != 0) {
                         $sidebar_responsive.css('background-image', 'url("' + new_image + '")');
                     }
                 });
+
                 $('.switch-sidebar-image input').change(function () {
                     $full_page_background = $('.full-page-background');
+
                     $input = $(this);
+
                     if ($input.is(':checked')) {
                         if ($sidebar_img_container.length != 0) {
                             $sidebar_img_container.fadeIn('fast');
                             $sidebar.attr('data-image', '#');
                         }
+
                         if ($full_page_background.length != 0) {
                             $full_page_background.fadeIn('fast');
                             $full_page.attr('data-image', '#');
                         }
+
                         background_image = true;
                     } else {
                         if ($sidebar_img_container.length != 0) {
                             $sidebar.removeAttr('data-image');
                             $sidebar_img_container.fadeOut('fast');
                         }
+
                         if ($full_page_background.length != 0) {
                             $full_page.removeAttr('data-image', '#');
                             $full_page_background.fadeOut('fast');
                         }
+
                         background_image = false;
                     }
                 });
+
                 $('.switch-sidebar-mini input').change(function () {
                     $body = $('body');
+
                     $input = $(this);
+
                     if (md.misc.sidebar_mini_active == true) {
                         $('body').removeClass('sidebar-mini');
                         md.misc.sidebar_mini_active = false;
+
                         $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar();
+
                     } else {
+
                         $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar('destroy');
+
                         setTimeout(function () {
                             $('body').addClass('sidebar-mini');
+
                             md.misc.sidebar_mini_active = true;
                         }, 300);
                     }
+
                     // we simulate the window Resize so the charts will get updated in realtime.
                     var simulateWindowResize = setInterval(function () {
                         window.dispatchEvent(new Event('resize'));
                     }, 180);
+
                     // we stop the simulation of Window Resize after the animations are completed
                     setTimeout(function () {
                         clearInterval(simulateWindowResize);
                     }, 1000);
+
                 });
             });
-        });</script>
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            // Javascript method's body can be found in assets/assets-for-demo/js/demo.js
+            demo.initCharts();
+        });
+    </script>
     <script>
         $(document).ready(function () {
             md.checkFullPageBackgroundImage();
-        });</script>
+            setTimeout(function () {
+                // after 1000 ms we add the class animated to the login/register card
+                $('.card').removeClass('card-hidden');
+            }, 700);
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            // Initialise the wizard
+            demo.initMaterialWizard();
+            setTimeout(function () {
+                $('.card.card-wizard').addClass('active');
+            }, 600);
+        });
+    </script>
 </body>
-
 </html>
-
-@*@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-    {
-        @Html.AntiForgeryToken()
-        <h4>Create a new account.</h4>
-        <hr />
-        @Html.ValidationSummary("", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" class="btn btn-default" value="Register" />
-            </div>
-        </div>
-    }*@
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

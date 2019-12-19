@@ -11,9 +11,46 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using FinacialPortal2.Models;
+using System.Net.Mail;
+using System.Web.Configuration;
+using System.Net;
 
 namespace FinacialPortal2
 {
+    public class PersonalEmail
+    {
+        public async Task<bool> SendAsync(MailMessage message)
+        {
+            //Privaate.config set up
+            var GmailUsername = WebConfigurationManager.AppSettings["username"];
+            var GmailPassword = WebConfigurationManager.AppSettings["password"];
+            var host = WebConfigurationManager.AppSettings["host"];
+            int port = Convert.ToInt32(WebConfigurationManager.AppSettings["port"]);
+            var from = new MailAddress(WebConfigurationManager.AppSettings["emailfrom"], "FinancialPortal");
+
+            using (var smtp = new SmtpClient()
+            {
+                Host = host,
+                Port = port,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(GmailUsername, GmailPassword)
+            })
+            {
+                try
+                {
+                    await smtp.SendMailAsync(message);
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
+            };
+
+        }
+    }
     public class EmailService : IIdentityMessageService
     {
         public Task SendAsync(IdentityMessage message)

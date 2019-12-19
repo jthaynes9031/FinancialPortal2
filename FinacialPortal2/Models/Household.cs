@@ -11,7 +11,8 @@ namespace FinacialPortal2.Models
         public string Name { get; set; }
         public string  Greeting { get; set; }
         public DateTime Created { get; set; }
-
+        public string OwnerUserId { get; set; }
+        public virtual ApplicationUser OwnerUser { get; set; }
         public virtual ICollection<BankAccount> BankAccounts { get; set; }
         public virtual ICollection<Budget> Budgets { get; set; }
         public virtual ICollection<Notification> Notifications { get; set; }

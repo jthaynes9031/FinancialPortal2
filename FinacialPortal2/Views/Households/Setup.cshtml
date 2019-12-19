@@ -1,0 +1,222 @@
+﻿@model FinacialPortal2.Models.BankAccountWizard
+@{
+    ViewBag.Title = "Setup";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Setup</h2>
+<div class="content">
+    <div class="container-fluid">
+        <div class="col-md-8 col-12 mr-auto ml-auto">
+            <!--      Wizard container        -->
+            <div class="wizard-container">
+                <div class="card card-wizard" data-color="rose" id="wizardProfile">
+                    <!--        You can switch " data-color="primary" "  with one of the next bright colors: "green", "orange", "red", "blue"       -->
+                    <div class="card-header text-center">
+                        <h3 class="card-title">
+                            Create your Bank Accounts
+                        </h3>
+                        <h5 class="card-description">Configure your Accounts</h5>
+                    </div>
+                    <div class="wizard-navigation">
+                        <ul class="nav nav-pills">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#about" data-toggle="tab" role="tab">
+                                    Bank Account
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#account" data-toggle="tab" role="tab">
+                                    Budgets
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#address" data-toggle="tab" role="tab">
+                                    Budget Items
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    @using (Html.BeginForm("Setup", "Households", FormMethod.Post, new { role = "form", enctype = "Multipart/form-data" }))
+                    {
+                        <div class="card-body">
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="about">
+                                    <h5 class="info-text"> Let's Get Started</h5>
+                                    <div class="row justify-content-center">
+                                        @Html.AntiForgeryToken()
+                                        @Html.HiddenFor(model => Model.BankAccount.HouseHoldId)
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.BankAccount.Name, htmlAttributes: new { @class = "bmd-label-floating" })
+                                                <div class="col-md-10">
+                                                    @Html.EditorFor(model => model.BankAccount.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.ValidationMessageFor(model => model.BankAccount.Name, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="input-group form-control-lg">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="material-icons">face</i>
+                                                    </span>
+                                                </div>
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.BankAccount.AccountType, htmlAttributes: new { @class = "bmd-label-floating" })
+                                                    <div class="col-md-10">
+                                                        @Html.EditorFor(model => model.BankAccount.AccountType, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.ValidationMessageFor(model => model.BankAccount.AccountType, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-group form-control-lg">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="material-icons">record_voice_over</i>
+                                                    </span>
+                                                </div>
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.BankAccount.StartingBalance, htmlAttributes: new { @class = "bmd-label-floating" })
+                                                    <div class="col-md-10">
+                                                        @Html.EditorFor(model => model.BankAccount.StartingBalance, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.ValidationMessageFor(model => model.BankAccount.StartingBalance, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-10 mt-3">
+                                            <div class="input-group form-control-lg">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="material-icons">email</i>
+                                                    </span>
+                                                </div>
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.BankAccount.CurrentBalance, htmlAttributes: new { @class = "bmd-label-floating" })
+                                                    <div class="col-md-10">
+                                                        @Html.EditorFor(model => model.BankAccount.CurrentBalance, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.ValidationMessageFor(model => model.BankAccount.CurrentBalance, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="account">
+                                    <h5 class="info-text"> What are your Budgets? </h5>
+                                    <div class="row justify-content-center">
+                                        <div class="col-lg-10 mt-3">
+                                            <div class="input-group form-control-lg">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="material-icons">email</i>
+                                                    </span>
+                                                </div>
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.Budget.Name, htmlAttributes: new { @class = "bmd-label-floating" })
+                                                    <div class="col-md-10">
+                                                        @Html.EditorFor(model => model.Budget.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.ValidationMessageFor(model => model.Budget.Name, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-10 mt-3">
+                                            <div class="input-group form-control-lg">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="material-icons">email</i>
+                                                    </span>
+                                                </div>
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.Budget.TargetAmount, htmlAttributes: new { @class = "bmd-label-floating" })
+                                                    <div class="col-md-10">
+                                                        @Html.EditorFor(model => model.Budget.TargetAmount, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.ValidationMessageFor(model => model.Budget.TargetAmount, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-10 mt-3">
+                                            <div class="input-group form-control-lg">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="material-icons">email</i>
+                                                    </span>
+                                                </div>
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.Budget.CurrentAmount, htmlAttributes: new { @class = "bmd-label-floating" })
+                                                    <div class="col-md-10">
+                                                        @Html.EditorFor(model => model.Budget.CurrentAmount, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.ValidationMessageFor(model => model.Budget.CurrentAmount, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="address">
+                            <div class="row justify-content-center">
+                                <div class="col-sm-12">
+                                    <h5 class="info-text"> Budget Items </h5>
+                                </div>
+                                <div class="col-lg-10 mt-3">
+                                    <div class="input-group form-control-lg">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="material-icons">email</i>
+                                            </span>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.BudgetItem.Name, htmlAttributes: new { @class = "bmd-label-floating" })
+                                            <div class="col-md-10">
+                                                @Html.EditorFor(model => model.BudgetItem.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.BudgetItem.Name, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.BudgetItem.CurrentAmount, htmlAttributes: new { @class = "bmd-label-floating" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.BudgetItem.CurrentAmount, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.BudgetItem.CurrentAmount, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.BudgetItem.TargetAmount, htmlAttributes: new { @class = "bmd-label-floating" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.BudgetItem.TargetAmount, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.BudgetItem.TargetAmount, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" onclick="location.href='@Url.Action("Dashboard","Home")'" class="btn signBtn btn-block">Sign Up</button>
+                            <div class="mr-auto">
+                                <input type="button" class="btn btn-previous btn-fill btn-default btn-wd disabled" name="previous" value="Previous">
+                            </div>
+                            <div class="ml-auto">
+                                <input type="button" class="btn btn-next btn-fill btn-rose btn-wd" name="next" value="Next">
+                                @*<input type="button" class="btn btn-finish btn-fill btn-rose btn-wd" name="finish" value="Finish" style="display: none;">*@
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+
+                    }
+                </div>
+            </div>
+            <!-- wizard container -->
+        </div>
+    </div>
+</div>
+

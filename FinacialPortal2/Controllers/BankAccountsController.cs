@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using FinacialPortal2.Models;
+using Microsoft.AspNet.Identity;
 
 namespace FinacialPortal2.Controllers
 {
@@ -41,6 +42,7 @@ namespace FinacialPortal2.Controllers
         {
             ViewBag.HouseHoldId = new SelectList(db.Households, "Id", "Name");
             ViewBag.OwnerId = new SelectList(db.Users, "Id", "FirstName");
+            ViewBag.AccountType = new SelectList(db.BankAccounts);
             return View();
         }
 
@@ -53,6 +55,13 @@ namespace FinacialPortal2.Controllers
         {
             if (ModelState.IsValid)
             {
+                bankAccount.AccountType = bankAccount.AccountType;
+                bankAccount.StartingBalance = bankAccount.StartingBalance;
+                bankAccount.CurrentBalance = bankAccount.CurrentBalance;
+                bankAccount.lowLevelBalance = ((float)bankAccount.CurrentBalance / 2);
+                var user = db.Users.Find(User.Identity.GetUserId());
+                bankAccount.OwnerId = User.Identity.GetUserId();
+                bankAccount.Created = DateTime.Now;
                 db.BankAccounts.Add(bankAccount);
                 db.SaveChanges();
                 return RedirectToAction("Index");

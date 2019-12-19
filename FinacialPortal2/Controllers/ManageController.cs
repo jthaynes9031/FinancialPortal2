@@ -387,42 +387,42 @@ namespace FinacialPortal2.Controllers
 
         #endregion
 
-        [AllowAnonymous]
-        public ActionResult EditProfile()
-        {
-            var userId = User.Identity.GetUserId();
-            var user = db.Users.Find(userId);
-            var profile = new EditUser();
-            profile.FirstName = user.FirstName;
-            profile.LastName = user.LastName;
-            profile.DisplayName = user.DisplayName;
-            profile.Email = user.Email;
-            profile.AvatarPath = user.AvatarPath;
-            return View(profile);
-        }
-        // POST: 
-        [HttpPost]
-        public ActionResult EditProfile(EditUser model, HttpPostedFileBase avatar)
-        {
-            var userId = User.Identity.GetUserId();
-            var user = db.Users.Find(userId);
-            user.DisplayName = model.DisplayName;
-            user.FirstName = model.FirstName;
-            user.LastName = model.LastName;
-            user.Email = model.Email;
+        //[AllowAnonymous]
+        //public ActionResult EditProfile()
+        //{
+        //    var userId = User.Identity.GetUserId();
+        //    var user = db.Users.Find(userId);
+        //    var profile = new EditUser();
+        //    profile.FirstName = user.FirstName;
+        //    profile.LastName = user.LastName;
+        //    profile.DisplayName = user.DisplayName;
+        //    profile.Email = user.Email;
+        //    profile.AvatarPath = user.AvatarPath;
+        //    return View(profile);
+        //}
+        //// POST: 
+        //[HttpPost]
+        //public ActionResult EditProfile(EditUser model, HttpPostedFileBase avatar)
+        //{
+        //    var userId = User.Identity.GetUserId();
+        //    var user = db.Users.Find(userId);
+        //    user.DisplayName = model.DisplayName;
+        //    user.FirstName = model.FirstName;
+        //    user.LastName = model.LastName;
+        //    user.Email = model.Email;
 
-            //if (avatar != null)
-            //{
-            //    if (UploadValidator.IsWebFriendlyAttachment(avatar))
-            //    {
-            //        var filename = Path.GetFileName(avatar.FileName);
-            //        avatar.SaveAs(Path.Combine(Server.MapPath("~/Avatars/"), filename));
-            //        user.AvatarPath = "/Avatars/" + filename;
-            //    }
-            //}
+        //    //if (avatar != null)
+        //    //{
+        //    //    if (UploadValidator.IsWebFriendlyAttachment(avatar))
+        //    //    {
+        //    //        var filename = Path.GetFileName(avatar.FileName);
+        //    //        avatar.SaveAs(Path.Combine(Server.MapPath("~/Avatars/"), filename));
+        //    //        user.AvatarPath = "/Avatars/" + filename;
+        //    //    }
+        //    //}
 
-            db.SaveChanges();
-            return View();
-        }
+        //    db.SaveChanges();
+        //    return View();
+        //}
     }
 }

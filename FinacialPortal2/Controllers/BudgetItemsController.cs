@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using FinacialPortal2.Models;
+using Microsoft.AspNet.Identity;
 
 namespace FinacialPortal2.Controllers
 {
@@ -39,6 +40,11 @@ namespace FinacialPortal2.Controllers
         // GET: BudgetItems/Create
         public ActionResult Create()
         {
+
+            var userId = User.Identity.GetUserId();
+            var user = db.Users.Find(userId);
+            var budget = db.Budgets.Where(b => b.OwnerId == user.Id).ToList();
+
             ViewBag.BudgetId = new SelectList(db.Budgets, "Id", "OwnerId");
             return View();
         }
@@ -52,6 +58,12 @@ namespace FinacialPortal2.Controllers
         {
             if (ModelState.IsValid)
             {
+                
+                budgetItem.TargetAmount = budgetItem.TargetAmount;
+                budgetItem.CurrentAmount = budgetItem.CurrentAmount;
+                budgetItem.Name = budgetItem.Name;
+                budgetItem.BudgetId = budgetItem.BudgetId;
+                budgetItem.Created = DateTime.Now;
                 db.BudgetItems.Add(budgetItem);
                 db.SaveChanges();
                 return RedirectToAction("Index");

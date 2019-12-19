@@ -22,19 +22,16 @@
             @Html.DisplayNameFor(model => model.BankAccountId)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TransactioTypeId)
+            @Html.DisplayNameFor(model => model.TransactionType)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Created)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Account)
+            @Html.DisplayNameFor(model => model.Amount)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Memo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TransactionType)
         </th>
         <th></th>
     </tr>
@@ -51,19 +48,16 @@
             @Html.DisplayFor(modelItem => item.BankAccountId)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.TransactioTypeId)
+            @Html.DisplayFor(modelItem => item.TransactionType)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Created)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Account)
+            @Html.DisplayFor(modelItem => item.Amount)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Memo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TransactionType)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

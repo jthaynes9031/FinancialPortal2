@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using FinacialPortal2.Models;
+using Microsoft.AspNet.Identity;
 
 namespace FinacialPortal2.Controllers
 {
@@ -17,7 +18,7 @@ namespace FinacialPortal2.Controllers
         // GET: Budgets
         public ActionResult Index()
         {
-            var budgets = db.Budgets.Include(b => b.Household).Include(b => b.Owner);
+            var budgets = db.Budgets.Include(b => b.BankAccount).Include(b => b.Owner);
             return View(budgets.ToList());
         }
 
@@ -39,8 +40,12 @@ namespace FinacialPortal2.Controllers
         // GET: Budgets/Create
         public ActionResult Create()
         {
+            var userId = User.Identity.GetUserId();
+            var user = db.Users.Find(userId);
+            var bankAccounts = db.BankAccounts.Where(b => b.OwnerId == user.Id);
             ViewBag.HouseholdId = new SelectList(db.Households, "Id", "Name");
             ViewBag.OwnerId = new SelectList(db.Users, "Id", "FirstName");
+            ViewBag.BankAccountId = new SelectList(bankAccounts, "Id", "Name");
             return View();
         }
 
@@ -49,16 +54,25 @@ namespace FinacialPortal2.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,HouseholdId,OwnerId,Created,Name,TargetAmount,CurrentAmount")] Budget budget)
+        public ActionResult Create(Budget budget)
         {
             if (ModelState.IsValid)
             {
+                var userId = User.Identity.GetUserId();
+                var user = db.Users.Find(userId);
+
+                budget.OwnerId = user.Id;
+
+
+                budget.TargetAmount = budget.TargetAmount;
+                budget.CurrentAmount = budget.CurrentAmount;
+                budget.Created = DateTime.Now;
                 db.Budgets.Add(budget);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.HouseholdId = new SelectList(db.Households, "Id", "Name", budget.HouseholdId);
+            ViewBag.HouseholdId = new SelectList(db.Households, "Id", "Name", budget.BankAccountId);
             ViewBag.OwnerId = new SelectList(db.Users, "Id", "FirstName", budget.OwnerId);
             return View(budget);
         }
@@ -75,7 +89,7 @@ namespace FinacialPortal2.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.HouseholdId = new SelectList(db.Households, "Id", "Name", budget.HouseholdId);
+            ViewBag.HouseholdId = new SelectList(db.Households, "Id", "Name", budget.BankAccountId);
             ViewBag.OwnerId = new SelectList(db.Users, "Id", "FirstName", budget.OwnerId);
             return View(budget);
         }
@@ -93,7 +107,7 @@ namespace FinacialPortal2.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.HouseholdId = new SelectList(db.Households, "Id", "Name", budget.HouseholdId);
+            ViewBag.HouseholdId = new SelectList(db.Households, "Id", "Name", budget.BankAccountId);
             ViewBag.OwnerId = new SelectList(db.Users, "Id", "FirstName", budget.OwnerId);
             return View(budget);
         }

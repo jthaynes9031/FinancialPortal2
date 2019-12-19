@@ -9,13 +9,12 @@ namespace FinacialPortal2.Models
     public class Transaction
     {
         public int Id { get; set; }
-        public string BankAccountId { get; set; }
-        public int BudgetItemId { get; set; }
+        public int BankAccountId { get; set; }
+        public int? BudgetItemId { get; set; }
         public string OwnerId { get; set; }
-        public string TransactioTypeId { get; set; }
         public DateTime Created { get; set; }
-        public string Account { get; set; }
         public string Memo { get; set; }
+        public float Amount { get; set; }
 
         public virtual ApplicationUser Owner { get; set; }
         public virtual TransactionType TransactionType { get; set; }
